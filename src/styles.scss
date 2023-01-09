@@ -1,0 +1,93 @@
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.sliding-bar {
+  &:before {
+    background-color: #fafafa !important;
+  }
+
+  &:after {
+    background-color: #07065b !important;
+  }
+}
+
+
+@mixin border () {
+  border-color: #000000 !important;
+  border-style: solid !important;
+  border-width: 0.05rem !important;
+  border-radius: 0.5rem !important;
+  background-position: center !important;
+}
+
+.border {
+  @include border();
+
+  &-round {
+    border-radius: 0.5rem;
+  }
+}
+
+.btn-primary {
+  background-color: #07065b !important;
+
+  &:active,
+  &:focus {
+    outline: none !important;
+    outline-style: none !important;
+    box-shadow: none !important;
+    border-color: inherit !important;
+  }
+}
+
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cdk-overlay{
+  &-pane {
+    max-width: 100vw !important;
+  }
+  &-dark-backdrop {
+    background: rgba(0,0,0,0.7);
+  }
+}
+
+.dialog-p-0 {
+  .mat {
+    &-dialog {
+      &-container {
+        padding: 0rem;
+        background-color: transparent;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+
+.translateTop {
+  animation-name: displaceContent;
+  animation-duration: 0.5s;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes displaceContent {
+  to {
+    transform: translateY(0em)
+  }
+
+}
+

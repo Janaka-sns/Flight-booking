@@ -1,0 +1,205 @@
+<div class="container-fluid tile-container" *ngIf="optionBlocks.length > 0">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 padding-x py-3">
+      <div class="container-fluid g-1 mb-5 pb-2 cursor-pointer" *ngFor="let optionBlock of optionBlocks; let optionIndex = index" @TranslateYIn (click)="onOptionClickHandler(optionBlock)">
+        <div class="row g-0">
+          <div class="col-12 border border-none bg-white py-2">
+            <ng-container *ngIf="optionBlock.uprSeg != 0">
+              <div class="d-flex flex-row flex-wrap px-2 justify-content-between">
+                <div class="d-flex flex-column">
+                  <section>
+                    <span class="fs-6 fw-bold">
+                      {{ optionBlock.bndOptSumRec.depTimeF }}
+                    </span>
+                    <span class="small">
+                      ({{ optionBlock.bndOptSumRec.depDteFStr }})
+                    </span>
+                  </section>
+                  <section>
+                    {{ optionBlock.bndOptSumRec.depCityF }}
+                  </section>
+                </div>
+                <div class="d-flex flex-column">
+                  <section>
+                    <span class="fs-6 fw-bold">
+                      {{ optionBlock.bndOptSumRec.arvTimeL}}
+                    </span>
+                    <span class="small">
+                      ({{ optionBlock.bndOptSumRec.arvDteLStr }})
+                    </span>
+                  </section>
+                  <section>
+                    {{ optionBlock.bndOptSumRec.arvCityL }}
+                  </section>
+                </div>
+                <div class="d-flex flex-column">
+                  <section>
+                    <span class="fs-6 fw-bold">
+                      {{ optionBlock.bndOptSumRec.fltDurStr }}
+                    </span>
+                  </section>
+                  <section>
+                    {{ optionBlock.bndOptSumRec.stpTxt }}
+                  </section>
+                </div>
+              </div>
+
+              <div class="d-flex flex-row flex-wrap p-2 justify-content-between">
+              </div>
+
+              <div class="d-flex flex-row flex-wrap px-2 justify-content-between">
+                <div class="d-flex flex-column">
+                  <section *ngFor="let fbaCarr of optionBlock.fbaCarrList. fbaCarr">
+                    {{ fbaCarr.alc }}
+                  </section>
+                </div>
+                <div class="d-flex flex-column">
+                  <section *ngFor="let fbaCarr of optionBlock.fbaCarrList.fbaCarr">
+                    <div class="icon-baggage" bgImage="{{ iconPath + fbaCarr.sfb  }}" *ngIf="fbaCarr.sfb">
+                    </div>
+                  </section>
+                </div>
+                <div class="d-flex flex-column">
+                  <section>
+                    <span *ngIf="optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].sValRFN" class="d-inline-flex align-items-center">
+                      {{ optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].strRefund }}
+                      <div class="icon-refund ms-1" bgImage="{{ iconPath + optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].sValRFN  }}.png">
+                      </div>
+                    </span>
+                  </section>
+                </div>
+              </div>
+            </ng-container>
+
+            <div class="container-fluid inner">
+              <div class="container-fluid inner-container py-2">
+                <ng-container *ngFor="let section of optionBlock.lwrSegList.lwrOpt; let index=index; let isFirst = first;; let isLast = last;">
+                  <!-- <div class="inner-conttent p-2" (pan)="logPan($event)" (swipe)="navigationSwipeHandler($event,optionBlock)" [@Slide]="enterState" *ngIf="optionBlock.currentSectionIndex == index"> -->
+                  <div class="inner-conttent p-2" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event,optionBlock)" (touchend)="onTouchEnd($event)" [@Slide]="enterState" *ngIf="optionBlock.currentSectionIndex == index">
+                    <div class="navigation left d-flex flex-row justify-content-between align-items-center">
+                      <div class="navigation-icon cursor-pointer" (click)="$event.stopImmediatePropagation();$event.stopPropagation();$event.preventDefault();navigationArrowClickHandler(optionBlock,'ToRight')" *ngIf="(isAnimationEnd || OptBlockID != optionBlock.OptBlockID) && optionBlock.currentSectionIndex != 0" bgImage="{{ buttonPath}}RightArrow.png">
+                        <!-- <fa-icon [icon]="faCaretRight" size="3x" (click)="$event.stopImmediatePropagation();$event.stopPropagation();$event.preventDefault();navigationArrowClickHandler(optionBlock,'ToRight')" *ngIf="optionBlock.currentSectionIndex != 0"></fa-icon> -->
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-row flex-wrap px-2 justify-content-between">
+                      <div class="d-flex flex-column">
+                        <section class="d-flex flex-row">
+                          <span class="fs-6 fw-bold">
+                            {{ section.bndOptSumRec.depTimeF }}
+                          </span>
+                          <span class="ms-1 small">
+                            ({{ section.bndOptSumRec.depDteFStr }})
+                          </span>
+                        </section>
+                        <section>
+                          {{ section.bndOptSumRec.depCityF }}
+                        </section>
+                      </div>
+                      <div class="d-flex flex-column">
+                        <section class="d-flex flex-row">
+                          <span class="fs-6 fw-bold">
+                            {{ section.bndOptSumRec.arvTimeL }}
+                          </span>
+                          <span class="ms-1 small">
+                            ({{ section.bndOptSumRec.arvDteLStr }})
+                          </span>
+                        </section>
+                        <section>
+                          {{ section.bndOptSumRec.arvCityL }}
+                        </section>
+                      </div>
+                      <div class="d-flex flex-column">
+                        <section>
+                          <span class="fs-6 fw-bold">
+                            {{ section.bndOptSumRec.fltDurStr }}
+                          </span>
+                        </section>
+                        <section>
+                          {{ section.bndOptSumRec.stpTxt }}
+                        </section>
+                      </div>
+                    </div>
+
+                    <div class="d-flex flex-row flex-wrap p-2 justify-content-between">
+                    </div>
+
+                    <div class="d-flex flex-row flex-wrap px-2 justify-content-between">
+                      <div class="d-flex flex-column">
+                        <section *ngFor="let fbaCarr of section.fbaCarrList.fbaCarr">
+                          {{ fbaCarr.alc }}
+                        </section>
+                      </div>
+                      <div class="d-flex flex-column">
+                        <section *ngFor="let fbaCarr of section.fbaCarrList.fbaCarr">
+                          <div class="icon-baggage" bgImage="{{ iconPath + fbaCarrIcon(fbaCarr.sfb)  }}" *ngIf="fbaCarr.sfb">
+                          </div>
+                        </section>
+                      </div>
+                      <div class="d-flex flex-column">
+                        <section>
+                          <span *ngIf="section.sValRFN2" class="d-inline-flex align-items-center">
+                            {{ section.strRefund }}
+                            <div class="icon-refund ms-1" bgImage="{{ iconPath + section.sValRFN2  }}.png">
+                            </div>
+                          </span>
+                        </section>
+                      </div>
+                    </div>
+
+                    <div class="navigation right d-flex flex-row justify-content-between align-items-center">
+                      <div class="navigation-icon cursor-pointer" (click)="$event.stopImmediatePropagation();$event.stopPropagation();$event.preventDefault();navigationArrowClickHandler(optionBlock,'ToLeft')" *ngIf="(isAnimationEnd || OptBlockID != optionBlock.OptBlockID) && (optionBlock.currentSectionIndex + 1) != optionBlock.lwrSegList.lwrOpt.length" bgImage="{{ buttonPath}}LeftArrow.png">
+                        <!-- <fa-icon [icon]="faCaretLeft" size="3x" (click)="$event.stopImmediatePropagation();$event.stopPropagation();$event.preventDefault();navigationArrowClickHandler(optionBlock,'ToLeft')" *ngIf="(optionBlock.currentSectionIndex + 1) != optionBlock.lwrSegList.lwrOpt.length"></fa-icon> -->
+                      </div>
+                    </div>
+
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="d-flex flex-row flex-wrap px-2 pt-1 justify-content-between align-items-center">
+              <div class="d-flex flex-column position-relative">
+                <section class="fs-6 fw-bold  border border-minAmt">
+                  {{ optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].strAmt }}
+                </section>
+                <section class="minamt d-flex justify-content-center align-items-center">
+                  {{ optionBlock.strMinAmt }}
+                </section>
+              </div>
+              <div class="d-flex flex-column">
+                <section>
+                  <span *ngIf="optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].sValRfnH" class="d-inline-flex align-items-center">
+                    {{ optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].strRefund }}
+                    <div class="icon-refund ms-1" bgImage="{{ iconPath + optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].sValRfnH }}.png">
+                    </div>
+                  </span>
+                </section>
+              </div>
+              <div class="d-flex flex-column">
+                <section>
+                  [h2]
+                </section>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="my-3 padding-x ">
+        <br>
+        <br>
+        <br>
+        <div class="sort-filter-container col-12 col-md-6 d-flex justify-content-center align-items-center">
+          <div class="sort-filter-button fs-4 cursor-pointer d-flex justify-content-center align-items-center px-2"  (click)="onSortAndFilterClickHandler()">
+            Sort and Filter
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- <div class="row justify-content-center">
+
+  </div> -->
+</div>

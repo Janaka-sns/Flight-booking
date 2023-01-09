@@ -1,0 +1,85 @@
+<div class="bg-container">
+  <div class="container-fluid bg-white mb-4 border-round" *ngFor="let fltOption of fltOptionList.fltOption; let fltOptionIndex = index">
+    <div class="row py-2">
+      <div class="col-6 fs-6 fw-bold">
+        <section *ngIf="fltOptionIndex == 0">
+          {{fltOptionList.strBound1Orgin}} {{fltOptionList.strBound1Dest}}
+        </section>
+        <section *ngIf="fltOptionIndex == 1">
+          {{fltOptionList.strBound2Orgin}} {{fltOptionList.strBound2Dest}}
+        </section>
+      </div>
+      <div class="col-6">
+        {{fltOptionList.strTvlTime}}: {{fltOption.eft}}
+      </div>
+    </div>
+    <div class="row my-2" *ngFor="let legRec of fltOption.legList.legRec">
+      <div class="container-fluid">
+        <div class="row my-2">
+          <div class="col-5">
+            <div class="d-flex flex-column">
+              <section class="fw-bold">
+                {{legRec.timeDep}} [LxP19]
+              </section>
+              <section>
+                {{legRec.dateDep}}, {{legRec.dowDep}}
+              </section>
+            </div>
+          </div>
+          <div class="col-2">
+
+          </div>
+          <div class="col-5">
+            <div class="d-flex flex-column">
+              <section class="fw-bold">
+                {{legRec.bpCity}}
+              </section>
+              <section *ngIf="legRec.bpTmnl">
+                {{legRec.bpTmnl}}
+              </section>
+              <section>
+                {{legRec.mktCarr}} {{legRec.fltNo}} | {{legRec.mktCarrTxt}}
+              </section>
+              <section>
+                {{legRec.eqpType}}
+              </section>
+              <section *ngIf="legRec.oprCarrTxt">
+                {{legRec.oprCarrTxt}}
+              </section>
+              <section>
+                {{fltOptionList.strBgs}} {{legRec.fbaStr}}
+              </section>
+            </div>
+          </div>
+        </div>
+        <div class="row my-2">
+          <div class="col-5">
+            <section class="fw-bold">
+              {{legRec.timeArv}} [LxP20]
+            </section>
+            <section>
+              {{legRec.dateArv}}, {{legRec.dowArv}}
+            </section>
+          </div>
+          <div class="col-2">
+
+          </div>
+          <div class="col-5">
+            <section class="fw-bold">
+              {{legRec.offCity}}
+            </section>
+            <section *ngIf="legRec.offTmnl">
+              {{legRec.offTmnl}}
+            </section>
+          </div>
+        </div>
+        <div class="row my-2 justify-content-center" *ngIf="legRec.trns">
+          <div class="col-10 text-center p-1 trans fw-bold border-round">
+            {{legRec.trns}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="overlay-border"  [class.right]="selectedTabIndex == 1"  [class.left]="selectedTabIndex == 2" [style.height.px]="borderContainerHeight"></div> -->
+  </div>
+</div>

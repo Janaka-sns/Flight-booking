@@ -1,0 +1,134 @@
+.overlay {
+  &-container {
+    position: absolute;
+    left: 0rem;
+    top: 0rem;
+    bottom: 0rem;
+    width: 100%;
+    height: 95vh;
+    background-color: #eeeeee;
+    z-index: 1001;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  &-content {
+    background-color: #FFFFFF;
+    padding-bottom: 1rem;
+    border-radius: 0.5rem;
+
+    &-page {
+      background-color: #939a9e;
+    }
+  }
+
+  &-detail {
+    overflow-y: auto;
+    overflow-x: hidden;
+    // background-color: #8F969D;
+    background-color: #133657;
+    // padding-bottom: 5rem;
+    position: relative;
+  }
+
+  &-border {
+    &.right {
+      padding-right: 1.75rem;
+    }
+
+    &.left {
+      padding-left: 1.75rem;
+    }
+  }
+}
+
+.swip-down-handler {
+  height: 0.25rem;
+  background-color: rgb(#ffffff, 0.6);
+}
+
+.border {
+  &-background {
+    background-repeat: no-repeat;
+    background-size: 100% 0.05rem !important;
+    background-position: center bottom;
+    background-image: linear-gradient(0deg, rgb(#ffffff, 0.8), rgb(#ffffff, 0.4));
+    transition: all 0.3s linear;
+    transition-property: background-size;
+
+    &.active {
+      background-size: 100% 0.25rem !important;
+    }
+  }
+}
+
+.clear-border-background {
+  background-repeat: no-repeat;
+  background-size: 100% 0.05rem !important;
+  background-position: center bottom;
+  background-image: linear-gradient(0deg, rgb(#133657, 0.8), rgb(#133657, 0.4));
+  transition: all 0.3s linear;
+  transition-property: background-size;
+  color: #133657;
+}
+
+.header {
+  background-color: #133657;
+  color: #ffffff;
+  height: 3rem;
+}
+
+.heading {
+  background-color: #F2F0DF ;
+  border-radius: 0.5rem;
+  border-color: #B9B1A5;
+  border-width: 0.05;
+  border-style: solid;
+  bottom: -1rem;
+  position: absolute;
+  line-height: 2rem;
+  color: rgba(#000000, 0.5);
+  left: 2rem;
+}
+
+.sort-filter {
+  min-height: 5rem;
+  &-container {
+    position: fixed;
+    bottom: 2rem;
+    height: 4rem;
+    background-color: rgba(#8F8F8A, 0.6);
+    z-index: 100;
+  }
+
+  &-button {
+    background-color: rgba(#C4C4C4, 1);
+    color: #FCFCFC;
+    height: 3rem;
+    border-radius: 2rem;
+    width: 20rem;
+  }
+}
+
+::ng-deep {
+  .noUi-connect {
+    background: #133657;
+  }
+
+  .noUi-touch-area {
+    background-color: #C4C4C4;
+  }
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+.close-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}

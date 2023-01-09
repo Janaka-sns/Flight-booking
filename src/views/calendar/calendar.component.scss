@@ -1,0 +1,73 @@
+$active-color: #4757FF;
+$inActive-color: #7985CB;
+
+.day {
+  width: calc(100% / 7);
+  padding: 0rem;
+  // padding: 0.25rem;
+  margin-top: 0.2rem;
+  &selectable{
+    padding-top: 0.2rem !important;
+    padding-bottom: 0rem !important;
+  }
+}
+
+.previous-dates{
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.active{
+  .text-success{
+    color: #ffffff !important;
+  }
+  // font-weight: 700;
+  color: #ffffff;
+  &.departure{
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    &.only{
+      border-top-right-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+    }
+  }
+  &.return{
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+  }
+
+  &-period{
+    background-color: #C5CBE9;
+  }
+
+  &.selectedDate{
+    &-D{
+      &.departure{
+        background-color: $active-color;
+      }
+      &.return{
+        background-color: $inActive-color;
+      }
+    }
+    &-R{
+      &.departure{
+        background-color: $inActive-color;
+      }
+      &.return{
+        background-color: $active-color;
+      }
+    }
+  }
+
+  &.same{
+    border-radius: 0.5rem;
+    &.selectedDate{
+      &-D{
+        background-image: linear-gradient(90deg, $active-color 50%, $active-color 50%, $inActive-color 50%, $inActive-color 50%);
+      }
+      &-R{
+        background-image: linear-gradient(90deg, $inActive-color 50%, $inActive-color 50%, $active-color 50%, $active-color 50%);
+      }
+    }
+  }
+}

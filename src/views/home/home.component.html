@@ -1,0 +1,54 @@
+<div class="container-fluid h-100">
+  <div class="row justify-content-center h-100">
+    <div class="col-12 col-md-6 padding-x py-3 d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <section>
+            <span class="badge bg-section text-secondary p-2">
+              Flight Tickets
+            </span>
+          </section>
+        </div>
+        <div class="row">
+          <form #inputForm="ngForm" novalidate appIdentityRevealed>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">@</span>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Username"
+                    aria-label="Username"
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+                <!-- <mat-form-field class="col">
+              <mat-label>{{"STUDIO.FIELD.FORMNAME" | pageContent}}</mat-label>
+              <input matInput [matAutocomplete]="formNameAutocomplete" #formNameInput #formName="ngModel" [(ngModel)]="form.name" (change) ="form.name = form.name.trim()" (ngModelChange)="form.name = $event; onNameChanged()" name="formName" maxlength="256" required autocomplete="off" (keydown.enter)="!form.id ? createNewForm() : onSaveHandler()">
+              <fa-icon
+              matSuffix
+              [icon]="keyboard"
+              [classes]="['cursor-pointer']"
+              (click)="$event.stopImmediatePropagation();$event.stopPropagation();$event.preventDefault();openKeyBoard(formNameInputKeyboard)">
+            </fa-icon>
+              <mat-spinner matSuffix class="mr-3" diameter="20" *ngIf="isLoading(formName)"></mat-spinner>
+              <fa-icon matSuffix [icon]="faAngleDown" *ngIf="hasSuggestions(formName)" [classes]="['cursor-pointer']"></fa-icon>
+              <mat-autocomplete #formNameAutocomplete="matAutocomplete">
+                <mat-option *ngFor="let suggestion of getSuggestion(formName)" [value]="suggestion">
+                  {{ suggestion }}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="formName.invalid && (formName.dirty || formName.touched)">
+                {{ (getErrorMessage(formName, 'FORMNAME' ).message) | pageContent}}
+              </mat-error>
+            </mat-form-field>
+            <key-board #formNameInputKeyboard (onSelect)="form.name= ($event.value.trim().length > 0 ? $event.value : formName.value); addSuggestionControl(formName, NameTranslationField.NAME);onNameChanged()"></key-board> -->
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

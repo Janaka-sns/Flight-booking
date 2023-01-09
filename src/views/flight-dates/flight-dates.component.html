@@ -1,0 +1,58 @@
+<div #DateContainer class="dates-container">
+  <form>
+    <div class="container-fluid">
+      <div #SelectedDateContainer class="row mt-0">
+        <div class="col">
+          <div class="container-fluid">
+            <div class="row bg-date border-round p-2 justify-content-between position-relative ">
+              <div class="active-selector border-round" [class.active-selector-date]="selectedDateType == DateType.RETURN" ></div>
+              <div matRipple class="py-0 col-6 d-flex date-class cursor-pointer flex-column align-items-center " [class.fw-bold]="selectedDateType == DateType.RETURN" [class.text-dark]="selectedDateType == DateType.RETURN" (click)="toggleSelectedDate(DateType.DEPARTURE)">
+                  <div class="small justify-content-start d-flex w-100">Departure</div>
+                  <div class="justify-content-start d-flex w-100">{{bookingRequest.departureDate | date : 'dd.MM.YYYY'}}</div>
+              </div>
+              <div matRipple class="py-0 pr-0 col-6 d-flex date-class cursor-pointer flex-column align-items-center " [class.fw-bold]="selectedDateType == DateType.DEPARTURE"  [class.text-dark]="selectedDateType == DateType.DEPARTURE" (click)="toggleSelectedDate(DateType.RETURN)">
+                <div class="{{'small justify-content-start d-flex ' + (!bookingRequest.returnDate ? 'btn btn-primary' : ' w-100') }}">{{bookingRequest.returnDate ? "Return" : "Add Return"}}</div>
+                <div class="justify-content-start d-flex w-100" *ngIf="bookingRequest.returnDate" >{{bookingRequest.returnDate | date : 'dd.MM.YYYY'}}</div>
+                <div matRipple class="col-auto text-center cursor-pointer px-1 me-4 close-icon position-absolute" *ngIf="bookingRequest.returnDate" (click)="clearReturnDate($event)">
+                  <fa-icon [icon]="closeIcon"></fa-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-0">
+        <div class="row">
+          <div class="col-12 mt-0">
+            <div class="container-fluid">
+              <div class="row mt-0 justify-content-between">
+                <div class="day pt-0 d-flex justify-content-center fs-6" *ngFor="let day of dayOfWeeks">
+                  <div class="">
+                    {{ day }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="calendar-container mt-0" [style.height.px]="calendarContainerHeight">
+        <div class="row" *ngFor="let monthStartDate of monthStartDates; let index = index">
+          <calendar [date]="monthStartDate" [bookingRequest]="bookingRequest" (dateSelected)="onDateSelected($event)" [selectedDateType]="selectedDateType" [departures]="getDepartures(monthStartDate)" [returns]="getReturns(monthStartDate)"></calendar>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-6 ">
+          <button class="col-12 btn-find border-round p-1 mt-2" mat-raised-button  (click)="proceedSelectedDate()">
+            Proceed
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #addReturn>
+  <div matRipple class="col-12 btn btn-primary py-3" (click)="addRetunDate()"> Add Return</div>
+</ng-template>

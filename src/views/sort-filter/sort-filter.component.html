@@ -1,0 +1,233 @@
+<div class="container-fluid g-0">
+  <div class="row justify-content-center g-0">
+    <div #MainContainer class="col-12 col-md-6  g-0 position-relative">
+      <div #overlay class="overlay-container" @TranslateYIn *ngIf="isShow">
+
+        <div class="container-fluid pt-1 header" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
+          <!-- <div class="row justify-content-center">
+            <div class="col-1 swip-down-handler cursor-pointer align-items-center" (click)="onCloseHandler()">
+            </div>
+          </div> -->
+          <div class="row justify-content-end">
+            <div matRipple class="col-auto text-center cursor-pointer border-background px-1 mx-2" (click)="clearAll()">
+              Clear All
+            </div>
+            <div matRipple class="col-auto text-center cursor-pointer px-1 me-4 close-icon" bgImage="{{ buttonPath}}cross.png" (click)="onCloseHandler()">
+            </div>
+          </div>
+        </div>
+        <div #Container class="container-fluid overlay-detail" [style.height.px]="data.height - 50" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="container-fluid mt-4">
+                <div class="row justify-content-center">
+                  <div class="col-12 overlay-content">
+                    <div class="container-fluid g-0 mt-2">
+                      <div class="row position-relative">
+                        <div class="col-8 col-md-4 py-1 heading d-flex justify-content-center">
+                          <span class="fs-6 fw-bold me-2">
+                            {{sortFilterResponseOptions.s1H}}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="row mt-4">
+                        <div class="col-12">
+                          <div class="container-fluid g-0">
+                            <!-- *ngIf="record.sVal != 'X' || record.sVal != 9" -->
+                            <div class="row mb-2 justify-content-center" *ngFor="let record of sortFilterResponseOptions.s1Recs.s1Rec">
+                              <div class="col-8 fw-bold">
+                                {{record.sTxt}}
+                              </div>
+                              <div class="col-4 text-end pe-4">
+                                <mat-radio-group [(ngModel)]="sortFilterOption.sortyBy" (ngModelChange)="onModelChange()">
+                                  <mat-radio-button color="primary" [value]="record.sVal">
+                                  </mat-radio-button>
+                                </mat-radio-group>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row justify-content-center my-5">
+                  <div class="col-12 overlay-content">
+                    <div class="container-fluid g-0">
+                      <div class="row position-relative">
+                        <div class="col-8 col-md-4 py-1 heading d-flex justify-content-center">
+                          <span class="fs-6 fw-bold me-2">
+                            {{sortFilterResponseOptions.s2H}}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="row mt-4">
+                        <div class="col-12">
+                          <div class="container-fluid g-0">
+                            <div class="row justify-content-end">
+                              <div class="col-auto fs-6 clear-border-background me-3 px-0 mb-4 cursor-pointer " (click)="clearBaggageOrRefunds()">
+                                {{sortFilterResponseOptions.sc}}
+                              </div>
+                            </div>
+                            <div class="row mb-2 justify-content-center" *ngFor="let record of sortFilterOption.baggageOrRefunds">
+                              <div class="col-8 flex-column">
+                                <section class="fw-bold">
+                                  {{record.sTxt1}}
+                                </section>
+                                <section>
+                                  ({{record.sTxt2}})
+                                </section>
+                              </div>
+                              <div class="col-4 text-end pe-4">
+                                <mat-slide-toggle color="primary" [(ngModel)]="record.selected" (ngModelChange)="onModelChange()"></mat-slide-toggle>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row justify-content-center my-5">
+                  <div class="col-12 overlay-content">
+                    <div class="container-fluid g-0">
+                      <div class="row position-relative">
+                        <div class="col-8 col-md-4 py-1 heading d-flex justify-content-center">
+                          <span class="fs-6 fw-bold me-2">
+                            {{sortFilterResponseOptions.s3H}}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="row mt-4">
+                        <div class="col-12">
+                          <div class="container-fluid g-0">
+                            <div class="row justify-content-end mb-4">
+                              <div class="col-auto fs-6 clear-border-background me-3 px-0 cursor-pointer " (click)="sortFilterOption.stops = undefined;onModelChange()">
+                                {{sortFilterResponseOptions.sc}}
+                              </div>
+                            </div>
+                            <div class="row mb-2 justify-content-center" *ngFor="let record of sortFilterResponseOptions.s3Recs.s3Rec">
+                              <div class="col-8 flex-column">
+                                <section class="fw-bold">
+                                  {{record.sTxt1}}
+                                </section>
+                                <section>
+                                  ({{record.sTxt2}})
+                                </section>
+                              </div>
+                              <div class="col-4 text-end pe-4">
+                                <mat-radio-group [(ngModel)]="sortFilterOption.stops" (ngModelChange)="onModelChange()">
+                                  <mat-radio-button color="primary" [value]="record.sVal">
+                                  </mat-radio-button>
+                                </mat-radio-group>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row justify-content-center my-5">
+                  <div class="col-12 overlay-content">
+                    <div class="container-fluid g-0">
+                      <div class="row position-relative">
+                        <div class="col-8 col-md-4 py-1 heading d-flex justify-content-center">
+                          <span class="fs-6 fw-bold me-2">
+                            {{sortFilterResponseOptions.s4H}}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="row mt-4">
+                        <div class="col-12">
+                          <div class="container-fluid g-0">
+                            <div class="row justify-content-end">
+                              <div class="col-auto fs-6 clear-border-background me-3 px-0 mb-4 cursor-pointer" (click)="clearAirlines()">
+                                {{sortFilterResponseOptions.sc}}
+                              </div>
+                            </div>
+                            <div class="row mb-2 justify-content-center" *ngFor="let record of sortFilterOption.airlines">
+                              <div class="col-8 flex-column">
+                                <section class="fw-bold">
+                                  {{record.sTxt}}
+                                </section>
+                              </div>
+                              <div class="col-4 text-end pe-4">
+                                <mat-slide-toggle color="primary" [(ngModel)]="record.selected" (ngModelChange)="onModelChange()"></mat-slide-toggle>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row justify-content-center my-5">
+                  <div class="col-12 overlay-content">
+                    <div class="container-fluid g-0">
+                      <div class="row position-relative">
+                        <div class="col-8 col-md-4 py-1 heading d-flex justify-content-center">
+                          <span class="fs-6 fw-bold me-2">
+                            {{sortFilterResponseOptions.s5H}}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="row mt-4">
+                        <div class="col-12">
+                          <div class="container-fluid g-0">
+                            <div class="row justify-content-end">
+                              <div class="col-auto fs-6 clear-border-background me-3 px-0 cursor-pointer " (click)="clearTimes()">
+                                {{sortFilterResponseOptions.sc}}
+                              </div>
+                            </div>
+                            <ng-container *ngFor="let record of sortFilterOption.times">
+                              <div class="row justify-content-center">
+                                <div class="col-8 fw-bold">
+                                  {{record.sTxt}}
+                                </div>
+                                <div class="col-4 text-end pe-4">
+                                  <!-- {{record.sValA}} - {{record.sValB}} -->
+                                  {{record.range[0]}} - {{record.range[1]}}
+                                </div>
+                              </div>
+                              <div class="row mb-2 justify-content-center">
+                                <div class="col-11">
+                                  <nouislider *ngIf="isSliderShow" [config]="timeConfig" #Nouislider [connect]="true" [min]="0" [max]="24" [step]="1" [(ngModel)]="record.range" (change)="onTimeChange($event, record, Nouislider)"></nouislider>
+                                  <nouislider *ngIf="!isSliderShow" [config]="timeConfig" #Nouislider [connect]="true" [min]="0" [max]="24" [step]="1" [(ngModel)]="record.range" (change)="onTimeChange($event, record, Nouislider)"></nouislider>
+                                </div>
+                              </div>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="container-fluid g-0">
+                <div class="row justify-content-center g-0">
+                  <div class="col-12 g-0 sort-filter">
+                    <div class="sort-filter-container d-flex justify-content-center align-items-center" [style.width.px]="buttonOverlayWidth">
+                      <div class="sort-filter-button fs-4 d-flex justify-content-center align-items-center px-2" [class.cursor-pointer]="optionBlockList.OptionBlock.length > 0" [class.cursor-not-allowed]="optionBlockList.OptionBlock.length == 0" (click)="showOptions()">
+                        Show the {{optionBlockList.OptionBlock.length}} options
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="bg-container" [style.height.px]="height">
+  <div class="container-fluid bg-white mb-4 border-round g-0" *ngFor="let fareGroup of fareGroupList.FareGroup; let fareGroupIndex = index">
+    <div class="row py-2 justify-content-center">
+      <div class="col-12 fs-6 fw-bold d-flex justify-content-center">
+        {{ fareGroup.segBound1}}
+      </div>
+      <div class="col-12 fs-6 fw-bold d-flex justify-content-center">
+        {{ fareGroup.segBound2}}
+      </div>
+    </div>
+    <div class="row">
+      <mat-accordion class="col-12">
+        <mat-expansion-panel *ngFor="let ffNr of fareGroup.FFnR; let ffNrIndex = index" [expanded]="ffNr.isItemSelected == 'Y'" (opened)="selectedIndex = ffNrIndex">
+          <mat-expansion-panel-header #header class="ps-0">
+            <mat-panel-title class="d-flex justify-content-between">
+              <section class="d-flex flex-row flex-wrap">
+                <!-- <fa-icon [icon]=" (ffNr.isItemSelected == 'Y' ? faDotCircle : faCircle)" [classes]="['mx-2']" *ngIf="selectedIndex != ffNrIndex"></fa-icon> -->
+                <fa-icon [icon]=" (ffNr.isItemSelected == 'Y' ? faDotCircle : faCircle)" [classes]="['mx-2']" (click)="onOptionSelected(selectedIndex == ffNrIndex, $event,fareGroup,ffNr)"></fa-icon>
+                <section *ngIf="ffNr.FFName">
+                  {{ ffNr.FFName }}
+                </section>
+              </section>
+              <section>
+                {{ ffNr.TotalAmt }}
+              </section>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="d-flex flex-column">
+            <div class="row my-2 justify-content-center">
+              <div class="col-11 text-center pt-1 bg-success border-round">
+              </div>
+            </div>
+            <div class="d-flex flex-row flex-nowrap my-1 align-items-center" *ngFor="let fareRec of ffNr.FareRec">
+              <div class="icon-fare me-1" bgImage="{{ iconPath + fareRec.icoRec  }}">
+              </div>
+              <section class="small">
+                {{ fareRec.txtRec }}
+                <span class="fw-bold">{{ fareRec.valRec }}</span>
+              </section>
+            </div>
+          </div>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+  </div>
+</div>

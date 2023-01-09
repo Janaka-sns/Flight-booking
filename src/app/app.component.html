@@ -1,0 +1,250 @@
+<progress-loader></progress-loader>
+<div class="content justify-content-center pb-4">
+  <div class="card-container justify-content-start" [style.width.px]="containerWidth">
+    <div class="cards border mb-0" *ngFor="let optionBlock of optionBlocks" @TranslateYIn [style.width.px]="cardWidth" [style.margin.px]="cardMargin">
+
+      <div class="w-100 d-flex flex-row flex-wrap px-2 justify-content-between mb-2">
+        <div class="d-flex flex-column">
+          <section>
+            <span class="fs-6 fw-bold">
+              {{ optionBlock.bndOptSumRec.depTimeF }}
+            </span>
+            <span class="small"> 
+              ({{ optionBlock.bndOptSumRec.depDteFStr }})
+            </span>
+          </section>
+          <section class="sectionHeading2">
+            {{ optionBlock.bndOptSumRec.depCityF }}
+          </section>
+        </div>
+        <div class="d-flex flex-column">
+          <section>
+            <span class="fs-6 fw-bold">
+              {{ optionBlock.bndOptSumRec.arvTimeL}}
+            </span>
+            <span class="small"> 
+              ({{ optionBlock.bndOptSumRec.arvDteLStr }})
+            </span>
+          </section>
+          <section class="sectionHeading2">
+            {{ optionBlock.bndOptSumRec.arvCityL }}
+          </section>
+        </div>
+        <div class="d-flex flex-column">
+          <section>
+            <span class="fs-6 fw-bold">
+              {{ optionBlock.bndOptSumRec.fltDurStr }}
+            </span>
+          </section>
+          <section class="sectionHeading2">
+            {{ optionBlock.bndOptSumRec.strStops }} {{ optionBlock.bndOptSumRec.stpCount }} 
+          </section>
+        </div>
+      </div>
+
+      <div class="w-100 d-flex flex-row flex-wrap px-2 justify-content-between mb-2">
+        <div class="d-flex flex-column">
+          <section *ngFor="let fbaCarr of optionBlock.fbaCarrList. fbaCarr">
+            {{ fbaCarr.alc }}
+          </section>
+        </div>
+        <div class="d-flex flex-column">
+          <section *ngFor="let fbaCarr of optionBlock.fbaCarrList.fbaCarr">
+            <div class="baggage-icon" bgImage="{{ iconPath + fbaCarr.sfb  }}" *ngIf="fbaCarr.sfb">
+            </div>
+          </section>
+        </div>
+        <div class="d-flex flex-column">
+          <section>
+            <span *ngIf="optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].sValRFN" class="d-inline-flex align-items-center refund">
+              {{ optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].strRefund }}
+              <div class="refund-icon ms-1" bgImage="{{ iconPath + optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].sValRFN  }}.png">
+              </div>
+            </span>
+          </section>
+          <!-- <section>
+            s1p10
+          </section> -->
+        </div>
+      </div>
+
+      <div class="container-fluid mx-0 px-0 card-inner-container">
+        <div class="row mx-0 px-0">
+          <div class="navigation left" [class.noelements]="(this.startDirection == 'ToLeft' && (optionBlock.currentSectionIndex + 1) == optionBlock.lwrSegList.lwrOpt.length) || (this.startDirection == 'ToRight' && optionBlock.currentSectionIndex  == 0 ) " (click)="navigationArrowClickHandler(optionBlock,'ToLeft')">
+            <fa-icon [icon]="faCaretLeft" size="3x" *ngIf="!this.startDirection || !((this.startDirection == 'ToLeft' && (optionBlock.currentSectionIndex + 1) == optionBlock.lwrSegList.lwrOpt.length) || (this.startDirection == 'ToRight' && optionBlock.currentSectionIndex  == 0 )) "></fa-icon>
+          </div>
+
+          <div class="body cursor-pointer px-1 ">
+            <ng-container *ngFor="let section of optionBlock.lwrSegList.lwrOpt; let index=index">
+              <!-- (click)="onSection2ClickHandler(section.SectionClickOverlayText)" -->
+              <div class="w-100 d-flex flex-row flex-wrap px-2 justify-content-between navigation-container mb-2" (pan)="logPan($event)" (swipe)="navigationSwipeHandler($event,optionBlock)" [@Slide]="enterState" *ngIf="optionBlock.currentSectionIndex == index">
+                <div class="d-flex flex-column">
+                  <section class="d-flex flex-row">
+                    <span class="fs-6 fw-bold">
+                      {{ section.bndOptSumRec.depTimeF }} 
+                    </span>
+                    <span class="ms-1 small"> 
+                      ({{ section.bndOptSumRec.depDteFStr }})
+                    </span>
+                  </section>
+                  <section class="mb-2 sectionHeading2">
+                    {{ section.bndOptSumRec.depCityF }}
+                  </section>
+
+                  <section *ngFor="let fbaCarr of section.fbaCarrList.fbaCarr">
+                    {{ fbaCarr.alc }}
+                  </section>
+
+                </div>
+                <div class="d-flex flex-column">
+                  <section class="d-flex flex-row">
+                    <span class="fs-6 fw-bold">
+                      {{ section.bndOptSumRec.arvTimeL }}
+                    </span>
+                    <span class="ms-1 small"> 
+                      ({{ section.bndOptSumRec.arvDteLStr }})
+                    </span>
+                  </section>
+                  <section class="mb-2 sectionHeading2">
+                    {{ section.bndOptSumRec.arvCityL }}
+                  </section>
+
+                  <section *ngFor="let fbaCarr of section.fbaCarrList.fbaCarr">
+                    <div class="baggage-icon" bgImage="{{ iconPath + fbaCarr.sfb  }}" *ngIf="fbaCarr.sfb">
+                    </div>
+                  </section>
+
+                </div>
+                <div class="d-flex flex-column">
+                  <section>
+                    <span class="fs-6 fw-bold">
+                      {{ section.bndOptSumRec.fltDurStr }}
+                    </span>
+                  </section>
+                  <section class="mb-2 sectionHeading2">
+                    {{ section.strStops }} {{  section.bndOptSumRec.stpCount }} 
+                  </section>
+
+                  <section>
+                    <span *ngIf="section.sValRFN2" class="d-inline-flex align-items-center refund">
+                      {{ section.strRefund }}
+                      <div class="refund-icon ms-1" bgImage="{{ iconPath + section.sValRFN2  }}.png">
+                      </div>
+                    </span>
+                  </section>
+                  <!-- <section>
+                    [s2p10]
+                  </section> -->
+
+                </div>
+              </div>
+            </ng-container>
+
+          </div>
+
+          <div class="navigation right" [class.noelements]="(this.startDirection == 'ToLeft' && (optionBlock.currentSectionIndex ) == 0)  || (this.startDirection == 'ToRight' && (optionBlock.currentSectionIndex + 1) == optionBlock.lwrSegList.lwrOpt.length)" (click)="navigationArrowClickHandler(optionBlock,'ToRight')">
+            <fa-icon [icon]="faCaretRight" size="3x" *ngIf="!this.startDirection || !((this.startDirection == 'ToLeft' && (optionBlock.currentSectionIndex ) == 0)  || (this.startDirection == 'ToRight' && (optionBlock.currentSectionIndex + 1) == optionBlock.lwrSegList.lwrOpt.length))"></fa-icon>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-100 d-flex flex-row flex-wrap px-2 justify-content-between mb-3">
+        <div class="d-flex flex-column">
+          <section>
+            {{ optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].strAmt }}
+          </section>
+          <section class="minamt px-2 d-flex justify-content-end align-items-center">
+            {{ optionBlock.strMinAmt }}
+          </section>
+        </div>
+        <div class="d-flex flex-column">
+          <section>
+            <span *ngIf="optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].sValRfnH" class="d-inline-flex align-items-center refund">
+              {{ optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].strRefund }}
+              <div class="refund-icon ms-1" bgImage="{{ iconPath + optionBlock.lwrSegList.lwrOpt[optionBlock.currentSectionIndex].sValRfnH }}.png">
+              </div>
+            </span>
+          </section>
+          <!-- <section>
+            [h3]
+          </section> -->
+        </div>
+        <div class="d-flex flex-column">
+          <!-- <section>
+            [h2]
+          </section> -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- <div class="card-container justify-content-start" [style.width.px]="containerWidth">
+    <div class="cards border mb-0" *ngFor="let tile of tiles" @TranslateYIn [style.width.px]="cardWidth" [style.margin.px]="cardMargin">
+      <div class="w-100 d-flex flex-column ">
+        <div class="w-100 d-flex flex-row flex-wrap justify-content-end p-2">
+          <div class="HeaderText1">
+            {{tile.HeaderText1}}
+          </div>
+          <div class="HeaderText2 ms-1">
+            {{tile.HeaderText2}}
+          </div>
+        </div>
+
+        <div class="w-100 d-flex flex-row flex-wrap px-2 justify-content-between cursor-pointer" (click)="onSection1ClickHandler(tile.Section1List.SectionClickOverlayText)">
+          <div class="d-flex flex-column section1Column">
+            {{tile.Section1List.Line1Text1}}
+            <br><span class="small">{{tile.Section1List.Line2Text1}}</span>
+          </div>
+          <div class="d-flex flex-column section1Column">
+            {{tile.Section1List.Line1Text2}}
+            <br><span class="small">{{tile.Section1List.Line2Text2}}</span>
+          </div>
+          <div class="d-flex flex-column section1Column">
+            {{tile.Section1List.Line1Text2}}
+            <br><span class="small">{{tile.Section1List.Line2Text3}}</span>
+          </div>
+        </div>
+
+        <div class="container-fluid mx-0 px-0 border card-inner-container">
+          <div class="row mx-0 px-0">
+            <div class="navigation left" [class.noelements]="(this.startDirection == 'ToLeft' && (tile.currentSectionIndex + 1) == tile.Section2List.length) || (this.startDirection == 'ToRight' && tile.currentSectionIndex  == 0 ) " (click)="arrowClickHandler(tile,'ToLeft')">
+              <fa-icon [icon]="faCaretLeft" size="2x" *ngIf="!this.startDirection || !((this.startDirection == 'ToLeft' && (tile.currentSectionIndex + 1) == tile.Section2List.length) || (this.startDirection == 'ToRight' && tile.currentSectionIndex  == 0 )) "></fa-icon>
+            </div>
+
+            <div class="body cursor-pointer">
+              <ng-container *ngFor="let section of tile.Section2List; let index=index">
+                <div class="w-100 d-flex flex-row flex-wrap px-2 justify-content-between navigation-container" (click)="onSection2ClickHandler(section.SectionClickOverlayText)" (pan)="logPan($event)" (swipe)="swipeHandler($event,tile)" [@Slide]="enterState" *ngIf="tile.currentSectionIndex == index">
+                  <div class="d-flex flex-column section2Column">
+                    {{section.Line1Text1}}
+                    <br><span class="small">{{section.Line2Text1}}</span>
+                  </div>
+                  <div class="d-flex flex-column section2Column">
+                    {{section.Line1Text2}}
+                    <br><span class="small">{{section.Line2Text2}}</span>
+                  </div>
+                  <div class="d-flex flex-column section2Column">
+                    {{section.Line1Text2}}
+                    <br><span class="small">{{section.Line2Text3}}</span>
+                  </div>
+                </div>
+              </ng-container>
+
+            </div>
+
+            <div class="navigation right" [class.noelements]="(this.startDirection == 'ToLeft' && (tile.currentSectionIndex ) == 0)  || (this.startDirection == 'ToRight' && (tile.currentSectionIndex + 1) == tile.Section2List.length)" (click)="arrowClickHandler(tile,'ToRight')">
+              <fa-icon [icon]="faCaretRight" size="2x" *ngIf="!this.startDirection || !((this.startDirection == 'ToLeft' && (tile.currentSectionIndex ) == 0)  || (this.startDirection == 'ToRight' && (tile.currentSectionIndex + 1) == tile.Section2List.length))"></fa-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid mx-0 px-2">
+        <div class="row mx-0 px-0 my-2">
+          <button mat-raised-button color="primary" class="btn btn-primary" (click)="onButtonClickHandler(tile)">{{tile.Section2List[tile.currentSectionIndex].buttonText.ButtonTextValue}}</button>
+        </div>
+      </div>
+
+    </div>
+  </div> -->
+</div>

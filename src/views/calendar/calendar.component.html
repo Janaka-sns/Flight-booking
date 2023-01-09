@@ -1,0 +1,59 @@
+<div class="col-12 mt-0">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-auto fw-bold fs-5 p-2  small">
+        {{ date | date: "MMMM YYYY" }}
+      </div>
+    </div>
+    <div class="row mt-0">
+      <div class="{{'day pt-0 my-0 py-md-0 d-flex justify-content-center align-items-center small selectedDate-'+selectedDateType}}" *ngFor="let day of datesOfMoth"
+      [class.active]="(((day | number : '2.0-0') + this.currentMonth) == (bookingRequest.departureDate | date : 'dd-MM-YYYY')) || (((day | number : '2.0-0') + this.currentMonth) == (bookingRequest.returnDate | date : 'dd-MM-YYYY'))"
+      [class.departure]="(((day | number : '2.0-0') + this.currentMonth) == (bookingRequest.departureDate | date : 'dd-MM-YYYY'))"
+      [class.return]="(((day | number : '2.0-0') + this.currentMonth) == (bookingRequest.returnDate | date : 'dd-MM-YYYY'))"
+      [class.same]="(bookingRequest.departureDate | date : 'dd-MM-YYYY') == (bookingRequest.returnDate | date : 'dd-MM-YYYY')"
+      [class.only]="!bookingRequest.returnDate"
+      [class.active-period]="isActiveDatePeriod(day)"
+      >
+        <div class="" *ngIf="day == 0">
+
+        </div>
+        <ng-container *ngIf="selectedDateType == DateType.DEPARTURE" >
+          {{hasDepartureFlights(day | number : '2.0-0' )}}
+          <div class="cursor-pointer px-4 pt-1 day-selectable small d-flex flex-column align-items-center" *ngIf="day != 0 && day >= firstAvailableDate && departureFlight" (click)="onDateSelect(day)">
+            <div class="fs-5">{{ day }}</div>
+            <div class="{{departureFlight?.Min == 'Y' ? 'text-success' : ''}}">{{departureFlight.AMT}}</div>
+          </div>
+          <div class="previous-dates px-4 pt-1 day-selectable small d-flex flex-column align-items-center" *ngIf="day != 0 && day >= firstAvailableDate && !departureFlight">
+            <div class="fs-5">{{ day }}</div>
+            <div [innerHTML]="'&nbsp'"></div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="selectedDateType == DateType.RETURN">
+          {{hasReturnFlights(day | number : '2.0-0' )}}
+          <div class="cursor-pointer px-4 pt-1 day-selectable small d-flex flex-column align-items-center" *ngIf="day != 0 && day >= firstAvailableDate && returnFlight" (click)="onDateSelect(day)">
+            <div class="fs-5">{{ day }}</div>
+            <div class="{{returnFlight?.Min == 'Y' ? 'text-success' : ''}}">{{returnFlight.AMT}}</div>
+          </div>
+          <div class="previous-dates px-4 pt-1 day-selectable small d-flex flex-column align-items-center" *ngIf="day != 0 && day >= firstAvailableDate && !returnFlight">
+            <div class="fs-5">{{ day }}</div>
+            <div [innerHTML]="'&nbsp'"></div>
+          </div>
+        </ng-container>
+
+        <div class="previous-dates px-4 pt-1 day-selectable small d-flex flex-column align-items-center" *ngIf="day != 0 && day < firstAvailableDate ">
+          <div class="fs-5">{{ day }}</div>
+          <div [innerHTML]="'&nbsp'"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+[class.departure]="(((day | number : '2.0-0') + this.currentMonth) == (bookingRequest.departureDate | date : 'dd-MM-YYYY'))"
+      [class.return]="(((day | number : '2.0-0') + this.currentMonth) == (bookingRequest.returnDate | date : 'dd-MM-YYYY'))"
+
+
+ -->
+<!-- selectedDateType == DateType.RETURN &&  -->
+<!-- [class.active-selected]="isActiveSelectedDate(day)" [class.active-departure]="isActiveDepartureDate(day)" [class.active-return]="isActiveRetundDate(day)" [class.active-period]="isActiveDatePeriod(day)" -->

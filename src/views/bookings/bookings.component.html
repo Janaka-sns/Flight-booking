@@ -1,0 +1,153 @@
+<div class="container p-0">
+  <div class="row justify-content-center">
+    <div class="col-12 px-0  position-relative">
+      <popup-layouts *ngIf="isShow" [(isShow)]="isShow" [(closePopup)]="closePopup">
+        <flight-dates [bookingRequest]="bookingRequest" [selectedDateType]="selectedDateType" (dateSelected)="closePopup = true"></flight-dates>
+      </popup-layouts>
+      <div class="row">
+        <div class="col my-4">
+          <section>
+            <span class="badge badge-active p-2 fw-normal">Flight Tickets</span>
+            <!-- <button mat-raised-button>Flight Tickets</button> -->
+          </section>
+        </div>
+      </div>
+      <form>
+        <div class="container-fluid border-aa border-round position-relative">
+          <!-- <popup-layouts *ngIf="isShow" [(isShow)]="isShow">
+            <flight-dates [bookingRequest]="bookingRequest" [selectedDateType]="selectedDateType"></flight-dates>
+          </popup-layouts> -->
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="col-12 mt-2" appearance="outline">
+                <mat-label>From</mat-label>
+                <input name="departure" [(ngModel)]="bookingRequest.departure" matInput autocomplete="off" required />
+                <mat-icon matSuffix>
+                  {{bookingRequest.departureCode}}
+                </mat-icon>
+                <mat-icon matSuffix class="position-absolute border shiftIcon bg-white cursor-pointer" (click)="shiftLocation()">
+                  <fa-icon [classes]="['bookingIcon']" [icon]="shiftIcon" [rotate]="90"></fa-icon>
+                </mat-icon>
+                <!-- <mat-hint>Hint</mat-hint> -->
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="col-12" appearance="outline">
+                <mat-label>To</mat-label>
+                <input name="destination" [(ngModel)]="bookingRequest.destination" matInput autocomplete="off" required />
+                <mat-icon matSuffix>
+                  {{bookingRequest.destinationCode}}
+                </mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <button class="col-12 " mat-stroked-button  (click)="onCalendarClickHandler(DateType.DEPARTURE)">
+                <div class="row justify-content-between cursor-pointer">
+                  <div class="col-auto">
+                    {{ bookingRequest.departureDate ? (bookingRequest.departureDate | date : 'dd MMM, YYYY') : 'Departing'}}
+                  </div>
+                  <div class="col-auto">
+                      <fa-icon [classes]="['bookingIcon']" [icon]="calendarIcon"></fa-icon>
+                  </div>
+                </div>
+              </button>
+            </div>
+            <div class="col-md-6 col-sm-12 mt-4  mt-md-0">
+              <button class="col-12" mat-stroked-button>
+                <div class="row justify-content-between cursor-pointer" (click)="onCalendarClickHandler(DateType.RETURN)">
+                  <div class="col-auto">
+                    {{ bookingRequest.returnDate ? (bookingRequest.returnDate | date : 'dd MMM, YYYY') : 'Returning'}}
+                  </div>
+                  <div class="col-auto" *ngIf="bookingRequest.returnDate" (click)="onClearReturnDate($event)">
+                    <fa-icon  [classes]="['bookingIcon']" [icon]="closeIcon"></fa-icon>
+                </div>
+                </div>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="col-12 mt-3" appearance="outline">
+                <mat-label>Pasengers</mat-label>
+                <input name="pasengers" [(ngModel)]="pasengers" matInput autocomplete="off" required/>
+                <mat-icon matSuffix>
+                  <fa-icon [classes]="['bookingIcon']" [icon]="pasengersIcon"></fa-icon>
+                </mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="container-fluid">
+                <div class="row bg-class border-round p-2 justify-content-between position-relative justify-content-center">
+                  <div class="active-selector border-round" [class.active-selector-business]="bookingRequest.classType == ClassType.BUSINESS"></div>
+                  <div class="p-2 col-6 d-flex justify-content-center flight-class cursor-pointer" (click)="toggleClass(ClassType.ECONOMY)">
+                    Economy
+                  </div>
+                  <div class="p-2 pr-0 col-6 d-flex justify-content-center flight-class cursor-pointer" (click)="toggleClass(ClassType.BUSINESS)">
+                    Business
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row">
+            <div class="col">
+              <div class="container-fluid">
+                <div class="row bg-class border-round p-2 justify-content-between position-relative justify-content-center">
+                  <button class="col-6 border-round" [class.active]="flightClass == 'Economy'" mat-flat-button (click)="flightClass = 'Economy'">
+                    Economy
+                  </button>
+                  <button class="col-6 border-round" [class.active]="flightClass == 'Business'" mat-flat-button (click)="flightClass = 'Business'">
+                    Business
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="col">
+              <section>
+                <div class="my-2">
+                  <button class="col-12 btn-find border-round p-1" mat-raised-button (click)="onFindClickHandler()">
+                    Find
+                  </button>
+                </div>
+              </section>
+            </div>
+          </div>
+
+
+          <!-- <div class="row">
+            <div class="col">
+              <button mat-raised-button color="primary">
+                Primary
+              </button>
+              <section>
+                <div class="example-label">Basic</div>
+                <div class="example-button-row">
+                  <button mat-raised-button color="primary">
+                    Primary
+                  </button>
+                  <button mat-raised-button color="accent">Accent</button>
+                  <button mat-raised-button color="warn">Warn</button>
+                  <button mat-raised-button disabled>Disabled</button>
+                  <a
+                    mat-raised-button
+                    href="https://www.google.com/"
+                    target="_blank"
+                    >Link</a
+                  >
+                </div>
+              </section>
+            </div>
+          </div> -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

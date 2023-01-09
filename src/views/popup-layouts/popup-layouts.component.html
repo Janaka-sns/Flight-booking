@@ -1,0 +1,15 @@
+<div class="popup-layouts pt-3" @TranslateYIn *ngIf="isShow">
+  <div #overlay class="popup-container border-round">
+    <div class="container-fluid pt-1 popup-header" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
+      <div class="row justify-content-end pb-2">
+        <ng-content select="[heading]"></ng-content>
+        <div matRipple class="col-auto text-center cursor-pointer px-1 me-4 close-icon" (click)="onCloseHandler()">
+          <fa-icon [icon]="closeIcon"></fa-icon>
+        </div>
+      </div>
+    </div>
+    <div #Container class="container-fluid popup-detail">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

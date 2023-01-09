@@ -1,0 +1,34 @@
+<div class="overlay" *ngIf="isShow" @TranslateYIn (swipe)="swipeHandler($event)">
+  <div class="d-flex flex-row justify-content-center overlay-close" [style.width.px]="(innerWidth - 0)">
+    <fa-icon [icon]="faCaretDown" size="2x" (click)="onCloseHandler()" [classes]="['cursor-pointer']"></fa-icon>
+  </div>
+
+  <div class="overlay-content d-flex flex-column align-items-center justify-content-center">
+    <ng-container *ngIf="overlayText">
+      <p>
+        {{overlayText}}
+      </p>
+    </ng-container>
+
+    <ng-container *ngIf="buttonOverlay">
+      <form #inputForm="ngForm" novalidate appIdentityRevealed autocomplete="off">
+        <div class="container-fluid">
+          <!-- <div class="row">
+            <div class="col fw-bold">
+              {{buttonOverlay.OverlayHeaderText}}
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="col">
+              <label id="example-radio-group-label" class="fw-bold">{{buttonOverlay.OverlayHeaderText}}</label>
+              <mat-radio-group class="example-radio-group" (change)="onRadioChange($event)" [(ngModel)]="currentButtonTextValue" [ngModelOptions]="{standalone: true}">
+                <mat-radio-button class="example-radio-button" name="'button-text'" color="primary" value="{{btn.ButtonValue}}" *ngFor="let btn of buttonOverlay.ButtonList">{{btn.ButtonText}}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+
+  </div>
+</div>

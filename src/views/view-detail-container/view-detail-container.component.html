@@ -1,0 +1,62 @@
+<div class="container-fluid g-0">
+  <div class="row justify-content-center g-0">
+    <div #MainContainer class="col-12 col-md-6  g-0 position-relative">
+      <div #overlay class="overlay-container" @TranslateYIn *ngIf="isShow">
+        <div class="container-fluid pt-1 header" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
+          <div class="row justify-content-end">
+            <!-- <div class="col-1 swip-down-handler cursor-pointer align-items-center" (click)="onCloseHandler()">
+            </div> -->
+            <div matRipple class="col-auto text-center cursor-pointer px-1 me-4 close-icon position-absolute" bgImage="{{ buttonPath}}cross.png"  (click)="onCloseHandler()">
+            </div>
+          </div>
+          <div class="row justify-content-around" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
+            <div matRipple class="col-auto text-center cursor-pointer border-background" [class.active]="selectedTabIndex == 1" (click)="onSwipeRight($event)">
+              <h2 class="m-0">Flights</h2>
+            </div>
+            <div matRipple class="col-auto text-center cursor-pointer border-background" [class.active]="selectedTabIndex == 2" (click)="onSwipeLeft($event)">
+              <h2 class="m-0">Fares</h2>
+            </div>
+          </div>
+          <div class="navigation left cursor-pointer" *ngIf="selectedTabIndex == 2" bgImage="{{ buttonPath}}RightArrow.png" (click)="onSwipeRight($event)">
+            <!-- <fa-icon [icon]="faCaretRight" size="3x" [classes]="['cursor-pointer']" (click)="onSwipeRight($event)"></fa-icon> -->
+          </div>
+          <div class="navigation right cursor-pointer" *ngIf="selectedTabIndex == 1" bgImage="{{ buttonPath}}LeftArrow.png" (click)="onSwipeLeft($event)">
+            <!-- <fa-icon [icon]="faCaretLeft" size="3x" [classes]="['cursor-pointer']" (click)="onSwipeLeft($event)"></fa-icon> -->
+          </div>
+        </div>
+
+        <div #Container class="container-fluid overlay-detail" [style.height.px]="data.height - 50">
+          <div class="row">
+            <div class="col overlay-border" [class.right]="selectedTabIndex == 1" [class.left]="selectedTabIndex == 2">
+              <div class="container-fluid px-4 pt-4 overlay-content h-100 ">
+                <div class="row h-100 pe-3 overlay-content-page" @Flights *ngIf="selectedTabIndex == 1" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
+                  <div class="col-12 position-relative">
+                    <flight-details [fltOptionList]="fltOptionList"></flight-details>
+                  </div>
+                </div>
+                <div class="row h-100 ps-3 overlay-content-page" @Fares *ngIf="selectedTabIndex == 2" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
+                  <div class="col-12 position-relative">
+                    <fare-details [fareGroupList]="fareGroupList"></fare-details>
+                  </div>
+                </div>
+              </div>
+
+              <div class="container-fluid g-0 overlay-page">
+                <div class="row justify-content-center g-0">
+                  <div class="col-12 g-0">
+                    <div class="proceed-container d-flex justify-content-center align-items-center" [style.width.px]="buttonOverlayWidth">
+                      <div class="proceed-button fs-4 d-flex justify-content-center align-items-center px-2 cursor-pointer" (click)="proceedToNext(selectedTabIndex)">
+                        Proceed
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+.mat-stroked-button {
+  font-weight: 400;
+}
+
+.badge {
+  color: #212529;
+  font-size: 0.8rem;
+  border-radius: 1rem;
+
+  &-active {
+    background-color: #e9edf3;
+  }
+}
+
+.bg {
+  &-class {
+    background-color: #eceff5;
+
+    .mat-flat-button {
+      background-color: transparent;
+
+      &.active {
+        background-color: #ffffff;
+      }
+    }
+  }
+}
+
+.btn {
+  &-find {
+    background-color: #d4e3ac;
+  }
+}
+
+.shiftIcon {
+  border-radius: 50% !important;
+  bottom: -2.75rem;
+  right: 0rem;
+  z-index: 1;
+  padding: 0.75rem;
+  border-color: #97ba1e !important;
+}
+
+.flight-class {
+  z-index: 1;
+}
+
+.active-selector {
+  background-color: #ffffff;
+  position: absolute;
+  width: 50%;
+  height: 2.75rem;
+  top: 0.25rem;
+  transition: 0.5s ease;
+
+  &-business {
+    transform: translateX(calc(100% - 0.75rem));
+  }
+}
+
+::ng-deep {
+  .popup {
+    &-header {
+      background-color: #ffffff;
+    }
+  }
+
+  .bookingIcon {
+    color: #97ba1e;
+  }
+}
